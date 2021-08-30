@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
+import 'package:flutter_weather_icons/flutter_weather_icons.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -31,8 +32,11 @@ class _HomeTabState extends State<HomeTab> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
-                            CupertinoIcons.cloud_fog,
+                            WeatherIcons.wiFog,
                             size: 60,
+                          ),
+                          SizedBox(
+                            height: 25,
                           ),
                           Text(
                             "Fog",
@@ -87,7 +91,9 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                   ),
                   Expanded(
-                    child: Container(),
+                    child: Container(
+                      width: 200,
+                    ),
                   ),
                   Expanded(
                     child: Center(
@@ -97,111 +103,38 @@ class _HomeTabState extends State<HomeTab> {
                         height: double.infinity,
                         child: Column(
                           children: [
-                            MainDesc(),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.web_rounded,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Air Pressure",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      "1000 PS",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            MainDesc(
+                              iSize: 22,
+                              iData: WeatherIcons.wiHumidity,
+                              propertyName: "Humidity",
+                              propertyVal: "50%",
                             ),
                             SizedBox(
                               height: 25,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.web_rounded,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Chances Of Rain",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      "50%",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            MainDesc(
+                              iSize: 24,
+                              iData: WeatherIcons.wiMoonAltFirstQuarter,
+                              propertyName: "Air Pressure",
+                              propertyVal: "1000.45 PS",
                             ),
                             SizedBox(
                               height: 25,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.web_rounded,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Wind Speed",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      "1.5 km/h",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            MainDesc(
+                              iSize: 34,
+                              iData: WeatherIcons.wiRaindrops,
+                              propertyName: "Chances of Rain",
+                              propertyVal: "20%",
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            MainDesc(
+                              iSize: 22,
+                              iData: WeatherIcons.wiSandstorm,
+                              propertyName: "Wind Speed",
+                              propertyVal: "1.4 km/h",
                             ),
                             SizedBox(
                               height: 20,
@@ -276,8 +209,14 @@ class _HomeTabState extends State<HomeTab> {
 
 class MainDesc extends StatelessWidget {
   final IconData? iData;
+  final double? iSize;
+  final String? propertyName;
+  final String? propertyVal;
   const MainDesc({
     this.iData,
+    this.iSize,
+    this.propertyName,
+    this.propertyVal,
     Key? key,
   }) : super(key: key);
 
@@ -287,8 +226,8 @@ class MainDesc extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(
-          Icons.web_rounded,
-          size: 20,
+          iData!,
+          size: iSize!,
         ),
         SizedBox(
           width: 10,
@@ -297,18 +236,21 @@ class MainDesc extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Humidity",
+              propertyName!,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
               ),
             ),
+            SizedBox(
+              height: 6,
+            ),
             Text(
-              "50%",
+              propertyVal!,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
-                fontSize: 18,
+                fontSize: 20,
               ),
             ),
           ],
